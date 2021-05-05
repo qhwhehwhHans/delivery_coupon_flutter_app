@@ -22,15 +22,19 @@ class _MainPageState extends State<MainPage> {
     if (stores.isEmpty) {
       return Scaffold(
         appBar: AppBar(title: Text("배달 어플 쿠폰 모아보기")),
-        body: CircularProgressIndicator(),
+        body: Center(child: CircularProgressIndicator()),
       );
     } else {
       return Scaffold(
           appBar: AppBar(title: Text("배달 어플 쿠폰 모아보기")),
-          body: ListView.builder(
-            //scrollDirection: Axis.vertical,
-            //shrinkWrap: true,
+          body: GridView.builder(
+            padding: EdgeInsets.all(10.0),
             itemCount: stores.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+            ),
             itemBuilder: (BuildContext context, int index) {
               return listItem(stores[index]);
             },)
