@@ -9,6 +9,19 @@ class listItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      children: [
+        ListTile(
+          title: Column(
+            children: [
+              Text("<"+store.app+">"),
+              Text(store.name, textScaleFactor: 2.0,),
+              Text(store.discount.toString()+"원 할인"),
+            ],
+          ),
+        ),
+        Divider(),
+      ],
+    );
   }
 }
