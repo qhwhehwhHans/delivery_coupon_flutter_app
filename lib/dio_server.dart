@@ -7,7 +7,10 @@ class Server {
   Future<void> getReq() async {
     Response response;
     Dio dio = new Dio();
-    response = await dio.get("$_API_PREFIX");
+    response = await dio.get(_API_PREFIX,
+                            options: Options(
+                              responseType: ResponseType.plain,
+                            ),);
     storeManager.jsonToStore(response.data.toString());
   }
 }
