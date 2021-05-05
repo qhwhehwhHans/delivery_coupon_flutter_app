@@ -1,11 +1,18 @@
 import 'package:delivery_coupon_app/store.dart';
 import 'package:flutter/material.dart';
 
-class listItem extends StatelessWidget {
+class listItem extends StatefulWidget {
 
   final Store store;
 
   listItem(this.store);
+
+  @override
+  _listItemState createState() => _listItemState();
+}
+
+class _listItemState extends State<listItem> {
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -14,35 +21,41 @@ class listItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("<"+store.app+">"),
-            SizedBox(height: 10,),
-            Text(store.name, textScaleFactor: 2.0,),
+            Text("<"+widget.store.app+">"),
+            SizedBox(height: 7,),
+            Text(widget.store.name, textScaleFactor: 2.0,),
             Text(
-              store.discount.toString()+"원 할인",
+              widget.store.discount.toString()+"원 할인",
               style: TextStyle(
                 color: Colors.blueAccent,
                 fontSize: 17,
               ),
             ),
             Text(
-              store.minimunPrice!=0?"최소주문금액: "+store.minimunPrice.toString()+"원":"최소주문금액: 없음",
+              widget.store.minimunPrice!=0?"최소주문금액: "+widget.store.minimunPrice.toString()+"원":"최소주문금액: 없음",
               style: TextStyle(
                 color: Colors.redAccent,
                 fontSize: 14,
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 7,),
             Text(
-              store.content.toString(),
+              widget.store.content.toString(),
               style: TextStyle(
                 color: Colors.lightGreen,
                 fontSize: 12,
               ),
             ),
+            SizedBox(height: 7,),
+            isChecked?Icon(Icons.favorite, color: Colors.red,):Icon(Icons.favorite_border),
           ],
         ),
       ),
-      onTap: (){},
+      onTap: (){
+        setState(() {
+          isChecked=!isChecked;
+        });
+      },
     );
   }
 }
