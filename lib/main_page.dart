@@ -26,7 +26,10 @@ class _MainPageState extends State<MainPage> {
       );
     } else {
       return Scaffold(
-          appBar: AppBar(title: Text("배달 어플 쿠폰 모아보기")),
+          appBar: AppBar(
+            title: Text("배달 어플 쿠폰 모아보기"),
+            centerTitle: true,
+          ),
           body: GridView.builder(
             padding: EdgeInsets.all(10.0),
             itemCount: stores.length,
