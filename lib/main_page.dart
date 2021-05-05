@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:delivery_coupon_app/dio_server.dart';
+import 'package:delivery_coupon_app/filter.dart';
 import 'package:delivery_coupon_app/list_item.dart';
 import 'package:delivery_coupon_app/store.dart';
 import 'package:delivery_coupon_app/store_manager.dart';
@@ -30,6 +31,7 @@ class _MainPageState extends State<MainPage> {
             title: Text("배달 어플 쿠폰 모아보기"),
             centerTitle: true,
           ),
+          drawer: Filter(),
           body: GridView.builder(
             padding: EdgeInsets.all(10.0),
             itemCount: stores.length,
