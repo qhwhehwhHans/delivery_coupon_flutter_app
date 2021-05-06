@@ -6,22 +6,27 @@ import 'package:flutter/material.dart';
 class Filter extends StatefulWidget {
 
   final List<Store> stores;
-  Filter(this.stores);
+  final Function togglePriceAscending;
+  bool priceAscending;
+
+  Filter(this.stores, this.priceAscending, this.togglePriceAscending);
 
   @override
-  _FilterState createState() => _FilterState(stores);
+  _FilterState createState() => _FilterState(stores, priceAscending, togglePriceAscending);
 }
 
 class _FilterState extends State<Filter> {
 
   final List<Store> stores;
+  final Function togglePriceAscending;
+  bool priceAscending;
 
   HashSet<String> appSet = HashSet();
   HashSet<String> categorySet = HashSet();
   List<String> appList = List<String>.empty();
   List<String> categoryList = List<String>.empty();
 
-  _FilterState(this.stores);
+  _FilterState(this.stores, this.priceAscending, this.togglePriceAscending);
 
   @override
   void initState() {
@@ -72,8 +77,13 @@ class _FilterState extends State<Filter> {
           ),
           ListTile(
             title: Text("가격"),
-            trailing: Icon(Icons.keyboard_arrow_up),
-            onTap: (){},
+            trailing: priceAscending?Icon(Icons.keyboard_arrow_up):Icon(Icons.keyboard_arrow_down),
+            onTap: (){
+              togglePriceAscending();
+              setState(() {
+                priceAscending = !priceAscending;
+              });
+            },
           ),
         ],
       ),

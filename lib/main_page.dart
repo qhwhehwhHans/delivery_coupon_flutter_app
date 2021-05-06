@@ -57,7 +57,7 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
-          drawer: Filter(stores),
+          drawer: Filter(stores,priceAscending,togglePriceAscending),
       );
     }
   }
@@ -75,19 +75,28 @@ class _MainPageState extends State<MainPage> {
           }
         }
       }
-      if (priceAscending) {
-        stores.sort((a, b){
-          if(a.discount > b.discount)
-            return 1;
-          return -1;
-        });
-      } else {
-        stores.sort((a, b){
-          if(a.discount < b.discount)
-            return 1;
-          return -1;
-        });
-      }
+      sortPrice();
     });
+  }
+  togglePriceAscending() {
+    setState(() {
+      priceAscending = !priceAscending;
+      sortPrice();
+    });
+  }
+  sortPrice(){
+    if (priceAscending) {
+      stores.sort((a, b){
+        if(a.discount > b.discount)
+          return 1;
+        return -1;
+      });
+    } else {
+      stores.sort((a, b){
+        if(a.discount < b.discount)
+          return 1;
+        return -1;
+      });
+    }
   }
 }
