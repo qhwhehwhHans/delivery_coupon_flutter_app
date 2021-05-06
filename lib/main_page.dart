@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:delivery_coupon_app/dio_server.dart';
@@ -16,6 +17,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   List<Store> stores = List<Store>.empty();
+  HashSet<String> filter = HashSet();
+  bool priceAscending = true;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,26 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-    update(List<Store> item) {
-      setState(() {stores = item;});
-    }
+  update(List<Store> item) {
+    setState(() {
+      if (filter.length == 0) {
+        stores = item;
+      } else {
+
+      }
+      if (priceAscending) {
+        stores.sort((a, b){
+          if(a.discount > b.discount)
+            return 1;
+          return -1;
+        });
+      } else {
+        stores.sort((a, b){
+          if(a.discount < b.discount)
+            return 1;
+          return -1;
+        });
+      }
+    });
+  }
 }
