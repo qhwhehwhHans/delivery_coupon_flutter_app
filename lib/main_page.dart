@@ -16,13 +16,18 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
-  List<Store> stores = List<Store>.empty();
+  List<Store> stores = [];
   HashSet<String> filter = HashSet();
   bool priceAscending = true;
 
   @override
+  void initState() {
+    server.getReq(initList);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    server.getReq(update);
     if (stores.isEmpty) {
       return Scaffold(
         appBar: AppBar(title: Text("배달 어플 쿠폰 모아보기")),
@@ -57,12 +62,18 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  update(List<Store> item) {
+  initList(List<Store> item) {
     setState(() {
       if (filter.length == 0) {
-        stores = item;
+        for(int i = 0; i < item.length; ++i) {
+          stores.add(item[i]);
+        }
       } else {
-
+        for(int i = 0; i < item.length; ++i) {
+          if(filter.contains(item[i].app)||filter.contains(item[i].category)) {
+            stores.add(item[i]);
+          }
+        }
       }
       if (priceAscending) {
         stores.sort((a, b){
