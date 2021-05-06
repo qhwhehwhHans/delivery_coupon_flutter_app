@@ -17,7 +17,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   List<Store> stores = [];
-  List<Store> displayStores = [];
+  List<Store> displayStores;
   HashSet<String> filter = HashSet();
   bool priceAscending = true;
 
@@ -77,6 +77,7 @@ class _MainPageState extends State<MainPage> {
     });
   }
   useFiliter(List<Store> item) {
+    displayStores=[];
     if (filter.length == 0) {
       for(int i = 0; i < item.length; ++i) {
         displayStores.add(item[i]);

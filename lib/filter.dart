@@ -55,7 +55,7 @@ class _FilterState extends State<Filter> {
             child: ListView.builder(
               padding: EdgeInsets.zero,
               itemBuilder: (BuildContext context, int index){
-                return filterItem(appList[index]);
+                return filterItem(appList[index],editFiliter);
               },
               itemCount: appList.length,
             ),
@@ -65,7 +65,7 @@ class _FilterState extends State<Filter> {
             child: ListView.builder(
               padding: EdgeInsets.zero,
               itemBuilder: (BuildContext context, int index){
-                return filterItem(categoryList[index]);
+                return filterItem(categoryList[index],editFiliter);
               },
               itemCount: categoryList.length,
             ),
