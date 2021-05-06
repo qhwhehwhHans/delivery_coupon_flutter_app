@@ -18,7 +18,8 @@ class _MainPageState extends State<MainPage> {
 
   List<Store> stores = [];
   List<Store> displayStores;
-  HashSet<String> filter = HashSet();
+  HashSet<String> appFilter = HashSet();
+  HashSet<String> categoryFilter = HashSet();
   bool priceAscending = true;
 
   @override
@@ -64,7 +65,7 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
-          drawer: Filter(stores, togglePriceAscending, editFiliter, priceAscending),
+          drawer: Filter(stores, togglePriceAscending, editAppFiliter, editCategoryFiliter, priceAscending),
       );
     }
   }
@@ -78,38 +79,38 @@ class _MainPageState extends State<MainPage> {
   }
   useFiliter(List<Store> item) {
     displayStores=[];
-    if (filter.length == 0) {
-      for(int i = 0; i < item.length; ++i) {
-        displayStores.add(item[i]);
-      }
-    } else {
-      for(int i = 0; i < item.length; ++i) {
-        if(filter.contains(item[i].app)||filter.contains(item[i].category)) {
+    for(int i = 0; i < item.length; ++i) {
+      if(appFilter.length == 0 || appFilter.contains(item[i].app)) {
+        if(categoryFilter.length == 0 || categoryFilter.contains(item[i].category)) {
           displayStores.add(item[i]);
         }
       }
     }
   }
 
-  editFiliter(String item, int type) {
+  editAppFiliter(String item, int type) {
     int returnValue = -1;
-    if (type == 0) {
-      //add,
-      setState(() {
-        filter.add(item);
-        useFiliter(stores);
-        sortPrice();
-      });
-    } else if (type == 1) {
-      //remove
-      setState(() {
-        filter.remove(item);
-        useFiliter(stores);
-        sortPrice();
-      });
-    } else if (type == 2) {
-      //get
-      returnValue = filter.contains(item) ? 1 : 0;
+    if (type == 0) { //add,
+      appFilter.add(item);
+      updateItem();
+    } else if (type == 1) { //remove
+      appFilter.remove(item);
+      updateItem();
+    } else if (type == 2) { //get
+      returnValue = appFilter.contains(item) ? 1 : 0;
+    }
+    return returnValue;
+  }
+  editCategoryFiliter(String item, int type) {
+    int returnValue = -1;
+    if (type == 0) { //add,
+      categoryFilter.add(item);
+      updateItem();
+    } else if (type == 1) { //remove
+      categoryFilter.remove(item);
+      updateItem();
+    } else if (type == 2) { //get
+      returnValue = categoryFilter.contains(item) ? 1 : 0;
     }
     return returnValue;
   }
@@ -117,7 +118,7 @@ class _MainPageState extends State<MainPage> {
   togglePriceAscending() {
     setState(() {
       priceAscending = !priceAscending;
-      sortPrice();
+      updateItem();
     });
   }
   sortPrice(){
@@ -134,5 +135,11 @@ class _MainPageState extends State<MainPage> {
         return -1;
       });
     }
+  }
+  updateItem() {
+    setState(() {
+      useFiliter(stores);
+      sortPrice();
+    });
   }
 }

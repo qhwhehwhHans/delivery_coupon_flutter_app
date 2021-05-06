@@ -8,20 +8,22 @@ class Filter extends StatefulWidget {
 
   final List<Store> stores;
   final Function togglePriceAscending;
-  final Function editFiliter;
+  final Function editAppFiliter;
+  final Function editCategoryFiliter;
   bool priceAscending;
 
-  Filter(this.stores, this.togglePriceAscending, this.editFiliter, this.priceAscending,);
+  Filter(this.stores, this.togglePriceAscending, this.editAppFiliter, this.editCategoryFiliter, this.priceAscending,);
 
   @override
-  _FilterState createState() => _FilterState(stores, togglePriceAscending, editFiliter, priceAscending);
+  _FilterState createState() => _FilterState(stores, togglePriceAscending, editAppFiliter, editCategoryFiliter, priceAscending);
 }
 
 class _FilterState extends State<Filter> {
 
   final List<Store> stores;
   final Function togglePriceAscending;
-  final Function editFiliter;
+  final Function editAppFiliter;
+  final Function editCategoryFiliter;
   bool priceAscending;
 
   HashSet<String> appSet = HashSet();
@@ -29,7 +31,7 @@ class _FilterState extends State<Filter> {
   List<String> appList = List<String>.empty();
   List<String> categoryList = List<String>.empty();
 
-  _FilterState(this.stores, this.togglePriceAscending, this.editFiliter, this.priceAscending,);
+  _FilterState(this.stores, this.togglePriceAscending, this.editAppFiliter, this.editCategoryFiliter, this.priceAscending,);
 
   @override
   void initState() {
@@ -55,7 +57,7 @@ class _FilterState extends State<Filter> {
             child: ListView.builder(
               padding: EdgeInsets.zero,
               itemBuilder: (BuildContext context, int index){
-                return filterItem(appList[index],editFiliter);
+                return filterItem(appList[index],editAppFiliter);
               },
               itemCount: appList.length,
             ),
@@ -65,7 +67,7 @@ class _FilterState extends State<Filter> {
             child: ListView.builder(
               padding: EdgeInsets.zero,
               itemBuilder: (BuildContext context, int index){
-                return filterItem(categoryList[index],editFiliter);
+                return filterItem(categoryList[index],editCategoryFiliter);
               },
               itemCount: categoryList.length,
             ),
