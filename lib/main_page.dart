@@ -34,18 +34,19 @@ class _MainPageState extends State<MainPage> {
           body: Column(
             children: [
               Filter(),
-              GridView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.all(10.0),
-                itemCount: stores.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  mainAxisSpacing: 10.0,
-                  crossAxisSpacing: 10.0,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return listItem(stores[index]);
-                },),
+              Expanded(
+                child: GridView.builder(
+                  padding: EdgeInsets.all(10.0),
+                  itemCount: stores.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 10.0,
+                    crossAxisSpacing: 10.0,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return listItem(stores[index]);
+                  },),
+              ),
             ],
           )
       );
