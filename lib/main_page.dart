@@ -32,8 +32,8 @@ class _MainPageState extends State<MainPage> {
             centerTitle: true,
           ),
           body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Filter(),
               Expanded(
                 child: GridView.builder(
                   padding: EdgeInsets.all(10.0),
@@ -48,14 +48,13 @@ class _MainPageState extends State<MainPage> {
                   },),
               ),
             ],
-          )
+          ),
+          drawer: Filter(stores),
       );
     }
   }
 
     update(List<Store> item) {
-      setState(() {
-        stores = item;
-      });
+      setState(() {stores = item;});
     }
 }
