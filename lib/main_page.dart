@@ -17,6 +17,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   List<Store> stores = [];
+  List<Store> displayStores = [];
   HashSet<String> filter = HashSet();
   bool priceAscending = true;
 
@@ -38,6 +39,12 @@ class _MainPageState extends State<MainPage> {
           appBar: AppBar(
             title: Text("배달 어플 쿠폰 모아보기"),
             centerTitle: true,
+            leading: Builder(
+              builder: (context)=> IconButton(
+                icon: Icon(Icons.settings_sharp),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
+            ),
           ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,39 +52,67 @@ class _MainPageState extends State<MainPage> {
               Expanded(
                 child: GridView.builder(
                   padding: EdgeInsets.all(10.0),
-                  itemCount: stores.length,
+                  itemCount: displayStores.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     mainAxisSpacing: 10.0,
                     crossAxisSpacing: 10.0,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return listItem(stores[index]);
+                    return listItem(displayStores[index]);
                   },),
               ),
             ],
           ),
-          drawer: Filter(stores,priceAscending,togglePriceAscending),
+          drawer: Filter(stores, togglePriceAscending, editFiliter, priceAscending),
       );
     }
   }
 
   initList(List<Store> item) {
     setState(() {
-      if (filter.length == 0) {
-        for(int i = 0; i < item.length; ++i) {
-          stores.add(item[i]);
-        }
-      } else {
-        for(int i = 0; i < item.length; ++i) {
-          if(filter.contains(item[i].app)||filter.contains(item[i].category)) {
-            stores.add(item[i]);
-          }
-        }
-      }
+      stores = item;
+      useFiliter(stores);
       sortPrice();
     });
   }
+  useFiliter(List<Store> item) {
+    if (filter.length == 0) {
+      for(int i = 0; i < item.length; ++i) {
+        displayStores.add(item[i]);
+      }
+    } else {
+      for(int i = 0; i < item.length; ++i) {
+        if(filter.contains(item[i].app)||filter.contains(item[i].category)) {
+          displayStores.add(item[i]);
+        }
+      }
+    }
+  }
+
+  editFiliter(String item, int type) {
+    int returnValue = -1;
+    if (type == 0) {
+      //add,
+      setState(() {
+        filter.add(item);
+        useFiliter(stores);
+        sortPrice();
+      });
+    } else if (type == 1) {
+      //remove
+      setState(() {
+        filter.remove(item);
+        useFiliter(stores);
+        sortPrice();
+      });
+    } else if (type == 2) {
+      //get
+      returnValue = filter.contains(item) ? 1 : 0;
+    }
+    return returnValue;
+  }
+
   togglePriceAscending() {
     setState(() {
       priceAscending = !priceAscending;
@@ -86,13 +121,13 @@ class _MainPageState extends State<MainPage> {
   }
   sortPrice(){
     if (priceAscending) {
-      stores.sort((a, b){
+      displayStores.sort((a, b){
         if(a.discount > b.discount)
           return 1;
         return -1;
       });
     } else {
-      stores.sort((a, b){
+      displayStores.sort((a, b){
         if(a.discount < b.discount)
           return 1;
         return -1;

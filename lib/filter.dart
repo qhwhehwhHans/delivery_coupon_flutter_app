@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:delivery_coupon_app/filter_item.dart';
 import 'package:delivery_coupon_app/store.dart';
 import 'package:flutter/material.dart';
 
@@ -7,18 +8,20 @@ class Filter extends StatefulWidget {
 
   final List<Store> stores;
   final Function togglePriceAscending;
+  final Function editFiliter;
   bool priceAscending;
 
-  Filter(this.stores, this.priceAscending, this.togglePriceAscending);
+  Filter(this.stores, this.togglePriceAscending, this.editFiliter, this.priceAscending,);
 
   @override
-  _FilterState createState() => _FilterState(stores, priceAscending, togglePriceAscending);
+  _FilterState createState() => _FilterState(stores, togglePriceAscending, editFiliter, priceAscending);
 }
 
 class _FilterState extends State<Filter> {
 
   final List<Store> stores;
   final Function togglePriceAscending;
+  final Function editFiliter;
   bool priceAscending;
 
   HashSet<String> appSet = HashSet();
@@ -26,7 +29,7 @@ class _FilterState extends State<Filter> {
   List<String> appList = List<String>.empty();
   List<String> categoryList = List<String>.empty();
 
-  _FilterState(this.stores, this.priceAscending, this.togglePriceAscending);
+  _FilterState(this.stores, this.togglePriceAscending, this.editFiliter, this.priceAscending,);
 
   @override
   void initState() {
@@ -52,11 +55,7 @@ class _FilterState extends State<Filter> {
             child: ListView.builder(
               padding: EdgeInsets.zero,
               itemBuilder: (BuildContext context, int index){
-                return ListTile(
-                  title: Text(appList[index]),
-                  trailing: Icon(Icons.check_box_outline_blank),
-                  onTap: (){},
-                );
+                return filterItem(appList[index]);
               },
               itemCount: appList.length,
             ),
@@ -66,11 +65,7 @@ class _FilterState extends State<Filter> {
             child: ListView.builder(
               padding: EdgeInsets.zero,
               itemBuilder: (BuildContext context, int index){
-                return ListTile(
-                  title: Text(categoryList[index]),
-                  trailing: Icon(Icons.check_box_outline_blank),
-                  onTap: (){},
-                );
+                return filterItem(categoryList[index]);
               },
               itemCount: categoryList.length,
             ),
