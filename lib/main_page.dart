@@ -1,11 +1,9 @@
 import 'dart:collection';
-import 'dart:html';
 
 import 'package:delivery_coupon_app/dio_server.dart';
 import 'package:delivery_coupon_app/filter.dart';
 import 'package:delivery_coupon_app/list_item.dart';
 import 'package:delivery_coupon_app/store.dart';
-import 'package:delivery_coupon_app/store_manager.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
