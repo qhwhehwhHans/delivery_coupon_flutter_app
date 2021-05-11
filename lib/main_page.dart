@@ -2,9 +2,12 @@ import 'dart:collection';
 
 import 'package:delivery_coupon_app/dio_server.dart';
 import 'package:delivery_coupon_app/filter.dart';
-import 'package:delivery_coupon_app/list_item.dart';
+import 'package:delivery_coupon_app/chrome_list_item.dart';
 import 'package:delivery_coupon_app/store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' as foundation;
+
+import 'android_list_item.dart';
 
 class MainPage extends StatefulWidget {
 
@@ -53,12 +56,12 @@ class _MainPageState extends State<MainPage> {
                   padding: EdgeInsets.all(10.0),
                   itemCount: displayStores.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
+                    crossAxisCount: foundation.defaultTargetPlatform == foundation.TargetPlatform.android? 2 : 4,
                     mainAxisSpacing: 10.0,
                     crossAxisSpacing: 10.0,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return listItem(displayStores[index]);
+                    return foundation.defaultTargetPlatform == foundation.TargetPlatform.android? chromeListItem(displayStores[index]) : androidListItem(displayStores[index]);
                   },),
               ),
             ],

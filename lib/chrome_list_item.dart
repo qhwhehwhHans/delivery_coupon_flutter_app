@@ -1,17 +1,17 @@
 import 'package:delivery_coupon_app/store.dart';
 import 'package:flutter/material.dart';
 
-class listItem extends StatefulWidget {
+class chromeListItem extends StatefulWidget {
 
   final Store store;
 
-  listItem(this.store);
+  chromeListItem(this.store);
 
   @override
-  _listItemState createState() => _listItemState();
+  _chromeListItem createState() => _chromeListItem();
 }
 
-class _listItemState extends State<listItem> {
+class _chromeListItem extends State<chromeListItem> {
   bool isChecked = false;
 
   @override
@@ -23,8 +23,8 @@ class _listItemState extends State<listItem> {
           children: [
             Text("<"+widget.store.app+">"),
             SizedBox(height: 7,),
-            Text(widget.store.name, textScaleFactor: 2.0,),
-            Text(
+            Text(widget.store.name, textScaleFactor: 1.0,),
+            /*Text(
               widget.store.discount.toString()+"원 할인",
               style: TextStyle(
                 color: Colors.blueAccent,
@@ -47,7 +47,7 @@ class _listItemState extends State<listItem> {
               ),
             ),
             SizedBox(height: 7,),
-            isChecked?Icon(Icons.favorite, color: Colors.red,):Icon(Icons.favorite_border),
+            isChecked?Icon(Icons.favorite, color: Colors.red,):Icon(Icons.favorite_border),*/
           ],
         ),
       ),
