@@ -18,13 +18,14 @@ class _androidListItem extends State<androidListItem> {
   Widget build(BuildContext context) {
     return ListTile(
       title: Card(
+        semanticContainer: true,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("<"+widget.store.app+">"),
             SizedBox(height: 7,),
-            Text(widget.store.name, textScaleFactor: 1.0,),
-            /*Text(
+            Text(widget.store.name, textScaleFactor: 2.0,),
+            Text(
               widget.store.discount.toString()+"원 할인",
               style: TextStyle(
                 color: Colors.blueAccent,
@@ -47,7 +48,7 @@ class _androidListItem extends State<androidListItem> {
               ),
             ),
             SizedBox(height: 7,),
-            isChecked?Icon(Icons.favorite, color: Colors.red,):Icon(Icons.favorite_border),*/
+            isChecked?Icon(Icons.favorite, color: Colors.red,):Icon(Icons.favorite_border),
           ],
         ),
       ),

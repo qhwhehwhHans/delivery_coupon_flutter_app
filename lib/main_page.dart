@@ -56,12 +56,13 @@ class _MainPageState extends State<MainPage> {
                   padding: EdgeInsets.all(10.0),
                   itemCount: displayStores.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: foundation.defaultTargetPlatform == foundation.TargetPlatform.android? 2 : 4,
+                    crossAxisCount: foundation.defaultTargetPlatform == foundation.TargetPlatform.android? 1 : 4,
                     mainAxisSpacing: 10.0,
                     crossAxisSpacing: 10.0,
+                    childAspectRatio: (MediaQuery.of(context).size.height * 0.0025),
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return foundation.defaultTargetPlatform == foundation.TargetPlatform.android? chromeListItem(displayStores[index]) : androidListItem(displayStores[index]);
+                    return foundation.defaultTargetPlatform == foundation.TargetPlatform.android? androidListItem(displayStores[index]) : chromeListItem(displayStores[index]);
                   },),
               ),
             ],

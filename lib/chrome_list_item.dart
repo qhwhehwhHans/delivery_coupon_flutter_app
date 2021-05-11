@@ -23,8 +23,8 @@ class _chromeListItem extends State<chromeListItem> {
           children: [
             Text("<"+widget.store.app+">"),
             SizedBox(height: 7,),
-            Text(widget.store.name, textScaleFactor: 1.0,),
-            /*Text(
+            Text(widget.store.name, textScaleFactor: 2.0,),
+            Text(
               widget.store.discount.toString()+"원 할인",
               style: TextStyle(
                 color: Colors.blueAccent,
@@ -47,7 +47,7 @@ class _chromeListItem extends State<chromeListItem> {
               ),
             ),
             SizedBox(height: 7,),
-            isChecked?Icon(Icons.favorite, color: Colors.red,):Icon(Icons.favorite_border),*/
+            isChecked?Icon(Icons.favorite, color: Colors.red,):Icon(Icons.favorite_border),
           ],
         ),
       ),
