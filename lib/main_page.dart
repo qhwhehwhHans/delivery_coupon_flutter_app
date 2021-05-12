@@ -22,6 +22,7 @@ class _MainPageState extends State<MainPage> {
   HashSet<String> appFilter = HashSet();
   HashSet<String> categoryFilter = HashSet();
   bool priceAscending = true;
+  final GlobalKey<ScaffoldState> _drawerscaffoldkey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -38,36 +39,40 @@ class _MainPageState extends State<MainPage> {
       );
     } else {
       return Scaffold(
-          appBar: AppBar(
-            title: Text("배달 어플 쿠폰 모아보기"),
-            centerTitle: true,
-            leading: Builder(
-              builder: (context)=> IconButton(
-                icon: Icon(Icons.settings_sharp),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-              ),
+        appBar: AppBar(
+          title: Text("배달 어플 쿠폰 모아보기"),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.settings_sharp),
+              onPressed: (){
+                if(_drawerscaffoldkey.currentState.isDrawerOpen){
+                  Navigator.pop(context);
+                } else {
+                  _drawerscaffoldkey.currentState.openDrawer();
+                }
+              },
             ),
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: GridView.builder(
-                  padding: EdgeInsets.all(10.0),
-                  itemCount: displayStores.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: foundation.defaultTargetPlatform == foundation.TargetPlatform.android? 1 : 4,
-                    mainAxisSpacing: 10.0,
-                    crossAxisSpacing: 10.0,
-                    childAspectRatio: (MediaQuery.of(context).size.height * 0.0025),
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return foundation.defaultTargetPlatform == foundation.TargetPlatform.android? androidListItem(displayStores[index]) : chromeListItem(displayStores[index]);
-                  },),
-              ),
-            ],
-          ),
+        ),
+        body: Scaffold(
+          key: _drawerscaffoldkey,
           drawer: Filter(stores, togglePriceAscending, editAppFiliter, editCategoryFiliter, priceAscending),
+          body: GridView.builder(
+            padding: EdgeInsets.all(10.0),
+            itemCount: displayStores.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: foundation.defaultTargetPlatform == foundation.TargetPlatform.android ? 1 : 4,
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              childAspectRatio: (MediaQuery.of(context).size.height * 0.0025),
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return foundation.defaultTargetPlatform == foundation.TargetPlatform.android ? androidListItem(displayStores[index]) : chromeListItem(displayStores[index]);
+            },
+          ),
+        ),
       );
     }
   }
